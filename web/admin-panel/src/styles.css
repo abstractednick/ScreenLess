@@ -1,0 +1,126 @@
+:root {
+  --bg: #101612;
+  --panel: #18211c;
+  --panel-2: #1f2b24;
+  --line: #2c3b33;
+  --text: #e8efe9;
+  --muted: #93a399;
+  --sage: #8fbf9a;
+  --clay: #d08a6e;
+  --cream: #f4efe4;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+h1, h2, .serif { font-family: Fraunces, Georgia, serif; font-weight: 500; }
+
+.login {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(800px 400px at 20% 0%, #1f3329 0%, transparent 55%),
+    var(--bg);
+}
+.login-card {
+  width: 420px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 36px;
+}
+.login-card .brand { letter-spacing: 0.24em; color: var(--clay); font-size: 12px; font-weight: 600; }
+.login-card h1 { font-size: 36px; margin: 12px 0 8px; }
+.login-card p { color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font: inherit;
+}
+button, .btn {
+  background: var(--sage);
+  color: #102016;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+.error { color: var(--clay); font-size: 13px; margin-bottom: 12px; }
+
+.shell { display: grid; grid-template-columns: 240px 1fr; min-height: 100%; }
+.side {
+  border-right: 1px solid var(--line);
+  padding: 28px 18px;
+  background: #0c120f;
+}
+.side .brand { letter-spacing: 0.2em; color: var(--clay); font-size: 11px; font-weight: 600; margin-bottom: 28px; }
+.side nav { display: flex; flex-direction: column; gap: 4px; }
+.side a, .side button.link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+}
+.side a.active, .side button.link.active { background: var(--panel-2); color: var(--cream); }
+.main { padding: 32px 40px 64px; }
+.main h1 { font-size: 32px; margin-bottom: 6px; }
+.sub { color: var(--muted); margin-bottom: 28px; }
+
+.stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 28px; }
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+}
+.stat .n { font-size: 28px; font-family: Fraunces, serif; color: var(--cream); }
+.stat .l { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.two { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; }
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px 20px;
+}
+.panel h2 { font-size: 18px; margin-bottom: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--muted); font-weight: 500; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+td { padding: 10px 6px; border-bottom: 1px solid var(--line); }
+.badge { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: #24352c; color: var(--sage); }
+.badge.warn { background: #3a241c; color: var(--clay); }
+.flag { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.toggle {
+  width: 40px; height: 22px; border-radius: 999px; background: #31443a; position: relative; cursor: pointer; border: 0;
+}
+.toggle.on { background: var(--sage); }
+.toggle:after {
+  content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff;
+  top: 3px; left: 3px;
+}
+.toggle.on:after { left: 21px; }
+
+@media (max-width: 1100px) {
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  .two { grid-template-columns: 1fr; }
+  .shell { grid-template-columns: 1fr; }
+}

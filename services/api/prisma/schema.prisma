@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  phone            String?
+  passwordHash     String
+  displayName      String
+  avatarHue        Int      @default(140)
+  timezone         String   @default("Asia/Kolkata")
+  preferredLanguage String  @default("en")
+  bio              String?
+  isBlocked        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  memberships      GroupMember[]
+  windowsCreated   Window[]           @relation("WindowCreator")
+  participations   WindowParticipant[]
+  signals          Signal[]
+  streaks          Streak[]
+  reflections      Reflection[]
+  badges           UserBadge[]
+  reportsFiled     Report[]           @relation("Reporter")
+  reportsAgainst   Report[]           @relation("ReportedUser")
+  notifications    Notification[]
+  trackingPrefs    TrackingPreference[]
+}
+
+model Group {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  inviteCode  String   @unique
+  isBlocked   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     GroupMember[]
+  windows     Window[]
+  streaks     Streak[]
+}
+
+model GroupMember {
+  id        String   @id @default(uuid())
+  groupId   String
+  userId    String
+  role      String   @default("MEMBER")
+  joinedAt  DateTime @default(now())
+
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+}
+
+model Window {
+  id              String        @id @default(uuid())
+  groupId         String
+  createdById     String
+  title           String
+  context         String
+  status          String        @default("SCHEDULED")
+  startsAt        DateTime
+  endsAt          DateTime
+  durationMinutes Int
+  discouragedApps String        @default("instagram,tiktok,youtube,x,reddit")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  group           Group         @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  createdBy       User          @relation("WindowCreator", fields: [createdById], references: [id])
+  participants    WindowParticipant[]
+  signals         Signal[]
+  reflections     Reflection[]
+}
+
+model WindowParticipant {
+  id          String            @id @default(uuid())
+  windowId    String
+  userId      String
+  status      String            @default("JOINED")
+  joinedAt    DateTime          @default(now())
+  leftAt      DateTime?
+  focusedPct  Int               @default(100)
+  peekCount   Int               @default(0)
+
+  window      Window            @relation(fields: [windowId], references: [id], onDelete: Cascade)
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([windowId, userId])
+}
+
+model Signal {
+  id          String   @id @default(uuid())
+  windowId    String
+  userId      String
+  kind        String
+  message     String
+  appCategory String?
+  createdAt   DateTime @default(now())
+
+  window      Window   @relation(fields: [windowId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Streak {
+  id          String   @id @default(uuid())
+  userId      String?
+  groupId     String?
+  context     String
+  current     Int      @default(0)
+  longest     Int      @default(0)
+  lastDate    String?
+  updatedAt   DateTime @updatedAt
+
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group       Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model Reflection {
+  id        String   @id @default(uuid())
+  windowId  String
+  userId    String
+  prompt    String
+  answer    String
+  createdAt DateTime @default(now())
+
+  window    Window   @relation(fields: [windowId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Badge {
+  id          String      @id @default(uuid())
+  slug        String      @unique
+  name        String
+  description String
+  unlockRule  String
+  users       UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(uuid())
+  userId    String
+  badgeId   String
+  unlockedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+model TrackingPreference {
+  id           String  @id @default(uuid())
+  userId       String
+  category     String
+  enabled      Boolean @default(true)
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, category])
+}
+
+model Report {
+  id             String       @id @default(uuid())
+  reporterId     String
+  reportedUserId String?
+  groupId        String?
+  reason         String
+  details        String?
+  status         String       @default("OPEN")
+  createdAt      DateTime     @default(now())
+  reviewedAt     DateTime?
+
+  reporter       User         @relation("Reporter", fields: [reporterId], references: [id])
+  reportedUser   User?        @relation("ReportedUser", fields: [reportedUserId], references: [id])
+}
+
+model FeatureFlag {
+  id          String  @id @default(uuid())
+  key         String  @unique
+  enabled     Boolean @default(false)
+  description String?
+}
+
+model ReflectionPrompt {
+  id       String  @id @default(uuid())
+  text     String
+  context  String  @default("any")
+  active   Boolean @default(true)
+}
+
+model WindowTemplate {
+  id              String        @id @default(uuid())
+  title           String
+  context         String
+  durationMinutes Int
+  description     String?
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  body      String
+  kind      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     String
+  action    String
+  target    String?
+  meta      String?
+  createdAt DateTime @default(now())
+}

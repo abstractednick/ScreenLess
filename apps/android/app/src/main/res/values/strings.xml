@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ScreenLess</string>
+    <string name="tagline">Phone down, friendship up.</string>
+    <string name="usage_consent_title">Soft signals, not surveillance</string>
+    <string name="usage_consent_body">ScreenLess only notices the apps you mark as distracting, and only while a window is live. Friends see a warm signal — never a minute-by-minute log.</string>
+</resources>

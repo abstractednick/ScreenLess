@@ -1,0 +1,185 @@
+:root {
+  --forest: #1b3a2f;
+  --forest-deep: #0f1f1a;
+  --sage: #4a7c59;
+  --sage-soft: #9fc3a8;
+  --cream: #f4efe4;
+  --cream-deep: #e8dfd0;
+  --clay: #c4785a;
+  --ink: #1a1814;
+  --paper: #faf7f0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { min-height: 100%; }
+body {
+  font-family: Figtree, system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+h1, h2, h3, .serif { font-family: Fraunces, Georgia, serif; font-weight: 500; }
+
+.landing {
+  min-height: 100vh;
+  padding: 48px 56px 80px;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #e8dfd0 0%, transparent 50%),
+    var(--cream);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.brand {
+  letter-spacing: 0.22em;
+  font-size: 13px;
+  color: var(--clay);
+  font-weight: 600;
+}
+.nav-links { display: flex; gap: 28px; font-size: 14px; }
+.nav-links a { color: var(--forest); text-decoration: none; }
+
+.hero { display: grid; grid-template-columns: 1.05fr 1.2fr; gap: 48px; align-items: center; }
+.kicker { color: var(--clay); letter-spacing: 0.18em; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+.hero h1 { font-size: 64px; line-height: 1.02; color: var(--forest); margin-bottom: 18px; }
+.lede { font-size: 18px; line-height: 1.55; max-width: 440px; color: rgba(26,24,20,0.72); margin-bottom: 28px; }
+.cta-row { display: flex; gap: 12px; }
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary { background: var(--forest); color: var(--cream); }
+.btn-ghost { background: transparent; color: var(--forest); border: 1px solid var(--forest); }
+
+.phones { display: flex; gap: 18px; justify-content: flex-end; align-items: flex-end; }
+.phones .phone-wrap:nth-child(1) { transform: translateY(28px) rotate(-6deg); }
+.phones .phone-wrap:nth-child(2) { transform: translateY(-8px); z-index: 2; }
+.phones .phone-wrap:nth-child(3) { transform: translateY(36px) rotate(6deg); }
+
+.section { margin-top: 96px; }
+.section h2 { font-size: 36px; color: var(--forest); margin-bottom: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+.card {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 22px;
+  min-height: 160px;
+}
+.card h3 { color: var(--forest); margin-bottom: 8px; font-size: 22px; }
+.card p { color: rgba(26,24,20,0.7); line-height: 1.5; }
+
+.gallery {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 48px 24px 80px;
+}
+.gallery-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.caption { font-size: 13px; color: var(--forest); letter-spacing: 0.08em; }
+
+/* Phone */
+.phone-wrap { width: 300px; }
+.phone {
+  width: 300px;
+  height: 620px;
+  background: #111;
+  border-radius: 42px;
+  padding: 10px;
+  box-shadow: 0 30px 60px rgba(27, 58, 47, 0.22);
+}
+.phone-screen {
+  height: 100%;
+  border-radius: 34px;
+  overflow: hidden;
+  background: var(--cream);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.status {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 18px 6px;
+  font-size: 11px;
+  color: var(--forest);
+  font-weight: 600;
+}
+.screen-body { flex: 1; padding: 8px 16px 16px; overflow: hidden; }
+
+.app-kicker { font-size: 11px; letter-spacing: 0.16em; color: var(--clay); font-weight: 600; }
+.app-title { font-family: Fraunces, serif; font-size: 26px; color: var(--forest); line-height: 1.15; margin: 6px 0 10px; }
+.muted { color: rgba(26,24,20,0.62); font-size: 13px; line-height: 1.4; }
+
+.live-card {
+  background: var(--forest);
+  color: var(--cream);
+  border-radius: 22px;
+  padding: 16px;
+  margin-top: 8px;
+}
+.live-card .tiny { color: var(--sage-soft); font-size: 10px; letter-spacing: 0.14em; }
+.avatars { display: flex; gap: 6px; margin-top: 12px; }
+.av {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center; color: var(--cream); font-size: 12px; font-weight: 600;
+}
+.row { display: flex; gap: 8px; margin-top: 10px; }
+.chip { flex: 1; background: var(--cream-deep); border-radius: 16px; padding: 12px; font-size: 13px; color: var(--forest); }
+.paper { background: var(--paper); border-radius: 16px; padding: 12px; margin-top: 10px; }
+
+.person {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(244,239,228,0.1); border-radius: 16px; padding: 10px; margin-bottom: 8px;
+}
+.phone-screen.dark { background: var(--forest); color: var(--cream); }
+.phone-screen.dark .status { color: var(--cream); }
+.signal { background: var(--paper); color: var(--forest); border-radius: 12px; padding: 10px; margin-top: 8px; font-size: 13px; }
+.peek { color: var(--clay); font-size: 12px; }
+.focus { color: var(--sage-soft); font-size: 12px; }
+
+.pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 11px;
+  margin-right: 6px;
+  margin-top: 6px;
+  background: var(--cream-deep);
+  color: var(--forest);
+}
+.pill.on { background: var(--forest); color: var(--cream); }
+
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--paper); border-radius: 14px; padding: 10px 12px; margin-top: 8px;
+}
+.switch {
+  width: 32px; height: 18px; background: var(--forest); border-radius: 999px; position: relative;
+}
+.switch:after {
+  content: ""; position: absolute; width: 12px; height: 12px; background: var(--sage-soft);
+  border-radius: 50%; top: 3px; right: 3px;
+}
+.switch.off { background: var(--cream-deep); }
+.switch.off:after { right: auto; left: 3px; background: #fff; }
+
+.solo { min-height: 100vh; display: grid; place-items: center; padding: 40px; background: #d9cfc0; }
+.solo.dark-bg { background: #14241e; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; }
+  .phones { justify-content: center; flex-wrap: wrap; }
+  .landing { padding: 28px 20px 60px; }
+  .hero h1 { font-size: 44px; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
